@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
+import Navbar from "@/components/layout/Navbar";
+import AuthenticatedAppShell from "@/components/layout/AuthenticatedAppShell"; // <-- IMPORTA EL NUEVO COMPONENTE
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,11 +28,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground`}
       >
-        {children}
+        <AuthProvider>
+          <div className="flex flex-col min-h-screen">
+            {" "}
+            {/* Ocupa toda la altura */}
+            <Navbar /> {/* La Navbar siempre está visible */}
+            {/* Contenedor para el contenido debajo de la Navbar.
+                Tiene pt-16 para compensar la altura de la Navbar fija.
+                AuthenticatedAppShell decidirá si muestra la Sidebar y ajusta el main,
+                o si solo muestra children.
+            */}
+            <div className="flex-1 flex flex-col pt-16 overflow-hidden">
+              <AuthenticatedAppShell>{children}</AuthenticatedAppShell>
+            </div>
+          </div>
+          <Toaster richColors position="top-right" />
+        </AuthProvider>
       </body>
     </html>
   );

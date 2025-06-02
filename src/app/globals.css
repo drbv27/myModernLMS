@@ -2,26 +2,90 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    /* Tema Claro */
+    --background: 210 40% 98%; /* Blanco Hueso / Gris muy claro (ej. HSL de #F8F9FA) */
+    --foreground: 327 25% 20%; /* Tu Berenjena oscuro para texto (#5C374C es aprox 327 25% 29%, lo oscurecemos un poco más para texto) */
+
+    --card: 0 0% 100%; /* Fondo de tarjeta blanco */
+    --card-foreground: 327 25% 20%; /* Texto en tarjeta (berenjena oscuro) */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 327 25% 20%;
+
+    /* Color Primario (tu Coral #FF8C61) */
+    --primary: 16 100% 70%; /* HSL de #FF8C61 */
+    --primary-foreground: 0 0% 100%; /* Texto blanco sobre coral */
+
+    /* Color Secundario (tu Melocotón #FAA275) */
+    --secondary: 24 92% 72%; /* HSL de #FAA275 */
+    --secondary-foreground: 327 25% 20%; /* Texto berenjena oscuro sobre melocotón (buen contraste) */
+
+    --muted: 210 40% 94%; /* Gris claro para elementos apagados */
+    --muted-foreground: 210 40% 45%; /* Texto gris sobre muted */
+
+    /* Color de Acento (tu Malva #CE6A85) */
+    --accent: 337 48% 61%; /* HSL de #CE6A85 */
+    --accent-foreground: 0 0% 100%; /* Texto blanco sobre malva */
+
+    --destructive: 0 84.2% 60.2%; /* Rojo estándar de Shadcn */
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 210 40% 88%; /* Borde gris claro (ligeramente más oscuro que muted) */
+    --input: 210 40% 92%; /* Fondo de input (un poco más oscuro que background) */
+    --ring: 16 100% 70%; /* Anillo de foco usa el color primario (coral) */
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Tema Oscuro */
+    --background: 327 25% 18%; /* Tu Berenjena como fondo (#5C374C es 29L, un poco más oscuro) */
+    --foreground: 210 40% 98%; /* Texto blanco hueso / gris muy claro */
+
+    --card: 327 25% 24%; /* Un tono de Berenjena/Ciruela ligeramente más claro que el fondo */
+    --card-foreground: 210 40% 98%;
+
+    --popover: 327 25% 18%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primario (Coral #FF8C61) - ajustado para tema oscuro */
+    --primary: 16 100% 65%; /* Un poco menos brillante/desaturado */
+    --primary-foreground: 327 25% 10%; /* Texto muy oscuro (casi negro) sobre coral */
+
+    /* Secundario (Melocotón #FAA275) - ajustado para tema oscuro */
+    --secondary: 24 85% 65%; /* Ligeramente ajustado */
+    --secondary-foreground: 327 25% 10%; /* Texto muy oscuro sobre melocotón */
+
+    --muted: 327 25% 30%; /* Un tono de Berenjena/Ciruela para muted */
+    --muted-foreground: 210 40% 60%; /* Texto gris claro */
+
+    /* Acento (Malva #CE6A85) - ajustado para tema oscuro */
+    --accent: 337 50% 65%; /* Ligeramente ajustado */
+    --accent-foreground: 0 0% 98%; /* Texto blanco */
+
+    --destructive: 0 62.8% 50.6%; /* Rojo más oscuro */
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 327 25% 30%; /* Borde de Berenjena/Ciruela */
+    --input: 327 25% 30%;
+    --ring: 16 100% 65%; /* Anillo de foco coral (versión para oscuro) */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    @apply transition-colors duration-300 ease-in-out;
   }
 }
